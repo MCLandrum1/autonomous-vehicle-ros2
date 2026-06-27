@@ -1,0 +1,26 @@
+<?xml version="1.0"?>
+<robot name="my_robot">
+
+    <!-- =================================
+     Materials (reusable colors)
+    ================================= -->
+    <material name="blue">
+        <color rgba="0.2 0.4 0.8 1.0 "/>    
+        </material>
+    <material name="black">
+        <color rgba="0.1 0.1 0.1 1.0 "/>    
+        </material>
+
+    <!-- =================================
+           Base Link (the chassis)
+    ================================= -->
+    <link name="base_link">
+        <visual>
+            <geometry>
+                <box size="0.4 0.3 0.15"/>
+            </geometry>
+            <origin xyz="0 0 0.075" rpy="0 0 0" />  
+            <material name="blue"/>
+        </visual>
+    </link>
+</robot>

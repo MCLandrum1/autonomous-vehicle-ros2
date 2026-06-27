@@ -1,0 +1,9 @@
+mason_chat_node:
+  ros__parameters:
+    publish_rate: 1.0
+    message_prefix: "Hi from MASON YAML"
+    topic_name: "yaml_chat"
+
+mason_listener_node:
+  ros__parameters:
+    topic_name: "yaml_chat"

@@ -40,5 +40,32 @@
 - Linux is case-sensitive — listener_node.py ≠ Listener_node.py
 
 ### Questions for next session
-- 
+
+
+
+
+- ## Week 2, Day 1 — [date]
+
+### What I did
+- Created new package: my_robot_description (ament_cmake)
+- Wrote first URDF: a blue box chassis
+- Validated with check_urdf
+- Visualized in RViz via urdf_tutorial display.launch.py
+- Experimented with cylinder, sphere, different sizes & colors
+
+### Concepts learned
+- URDF = XML tree of links + joints
+- Each link has visual (RViz), collision (physics), inertial (mass)
+- `origin xyz` positions the visual within the link's frame
+- ROS convention: X forward, Y left, Z up
+- robot_state_publisher reads URDF, publishes TF tree
+
+### What clicked
+-
+
+### What confused me
+-
+
+### Questions
+-
 -
