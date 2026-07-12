@@ -68,4 +68,33 @@
 
 ### Questions
 -
+-## Week 2, Day 2 — [date]
+
+### What I did
+- Added left + right wheels as cylinder links
+- Connected wheels with continuous joints (axis Y, so they rotate around left-right axis)
+- Added fixed caster wheel (sphere) for stability
+- Added fixed sensor mount box for future LiDAR
+- Experimented with wheel size, wheelbase, sensor mount orientation
+- Verified with check_urdf: root base_link has 4 children
+
+### Concepts learned
+- Joint types: continuous (infinite rotation), fixed (no motion), revolute (limited), prismatic (linear)
+- Every joint has: parent, child, origin (xyz + rpy), and for moving joints — axis
+- rpy = roll/pitch/yaw in RADIANS. 1.5708 = π/2 = 90°
+- Cylinders default upright on Z; roll 90° around X to make wheels on Y axis
+- Joint state publisher GUI provides sliders for testable joints (not fixed ones)
+- The TF tree in RViz shows every frame — this becomes critical for sensor data later
+
+### What clicked
 -
+
+### Gotchas to remember
+- rpy values are RADIANS not degrees — π/2 ≈ 1.5708 for 90°
+- Wheel Z offset must match wheel radius or wheels sink/float
+- Wheel Y offset must exceed chassis half-width or wheels clip through the body
+- `fixed` joints don't appear in the joint state publisher GUI (nothing to move)
+- Root link (base_link) has no parent — every other link must have exactly one parent
+
+### Questions
+-what are joint and links 

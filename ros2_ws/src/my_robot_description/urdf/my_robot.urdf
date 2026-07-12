@@ -1,26 +1,90 @@
 <?xml version="1.0"?>
 <robot name="my_robot">
 
-    <!-- =================================
-     Materials (reusable colors)
-    ================================= -->
-    <material name="blue">
-        <color rgba="0.2 0.4 0.8 1.0 "/>    
-        </material>
-    <material name="black">
-        <color rgba="0.1 0.1 0.1 1.0 "/>    
-        </material>
+  <!-- Materials -->
+  <material name="blue">
+    <color rgba="0.2 0.4 0.8 1.0"/>
+  </material>
+  <material name="black">
+    <color rgba="0.1 0.1 0.1 1.0"/>
+  </material>
+  <material name="grey">
+    <color rgba="0.5 0.5 0.5 1.0"/>
+  </material>
 
-    <!-- =================================
-           Base Link (the chassis)
-    ================================= -->
-    <link name="base_link">
-        <visual>
-            <geometry>
-                <box size="0.4 0.3 0.15"/>
-            </geometry>
-            <origin xyz="0 0 0.075" rpy="0 0 0" />  
-            <material name="blue"/>
-        </visual>
-    </link>
+  <!-- Chassis -->
+  <link name="base_link">
+    <visual>
+      <geometry>
+        <box size="0.4 0.3 0.15"/>
+      </geometry>
+      <origin xyz="0 0 0.075" rpy="0 0 0"/>
+      <material name="blue"/>
+    </visual>
+  </link>
+
+  <!-- Left wheel -->
+  <link name="left_wheel_link">
+    <visual>
+      <geometry>
+        <cylinder radius="0.05" length="0.03"/>
+      </geometry>
+      <origin xyz="0 0 0" rpy="1.5708 0 0"/>
+      <material name="black"/>
+    </visual>
+  </link>
+  <joint name="left_wheel_joint" type="continuous">
+    <parent link="base_link"/>
+    <child link="left_wheel_link"/>
+    <origin xyz="0 0.165 0.05" rpy="0 0 0"/>
+    <axis xyz="0 1 0"/>
+  </joint>
+
+  <!-- Right wheel -->
+  <link name="right_wheel_link">
+    <visual>
+      <geometry>
+        <cylinder radius="0.05" length="0.03"/>
+      </geometry>
+      <origin xyz="0 0 0" rpy="1.5708 0 0"/>
+      <material name="black"/>
+    </visual>
+  </link>
+  <joint name="right_wheel_joint" type="continuous">
+    <parent link="base_link"/>
+    <child link="right_wheel_link"/>
+    <origin xyz="0 -0.165 0.05" rpy="0 0 0"/>
+    <axis xyz="0 1 0"/>
+  </joint>
+
+  <!-- Caster wheel -->
+  <link name="caster_wheel_link">
+    <visual>
+      <geometry>
+        <sphere radius="0.025"/>
+      </geometry>
+      <material name="grey"/>
+    </visual>
+  </link>
+  <joint name="caster_wheel_joint" type="fixed">
+    <parent link="base_link"/>
+    <child link="caster_wheel_link"/>
+    <origin xyz="0.15 0 0.025" rpy="0 0 0"/>
+  </joint>
+
+  <!-- Sensor mount (for future LiDAR) -->
+  <link name="sensor_mount_link">
+    <visual>
+      <geometry>
+        <box size="0.05 0.05 0.05"/>
+      </geometry>
+      <material name="grey"/>
+    </visual>
+  </link>
+  <joint name="sensor_mount_joint" type="fixed">
+    <parent link="base_link"/>
+    <child link="sensor_mount_link"/>
+    <origin xyz="0 0 0.15" rpy="0 0 0"/>
+  </joint>
+
 </robot>
