@@ -98,3 +98,36 @@
 
 ### Questions
 -what are joint and links 
+
+## Week 2, Day 3 — [date]
+
+### What I did
+- Wrote custom display.launch.py using robot_state_publisher + joint_state_publisher_gui + rviz2
+- Updated CMakeLists.txt to install urdf/, launch/, rviz/ folders
+- Saved RViz config to rviz/display.rviz
+- Inspected /tf and /tf_static topics with ros2 topic echo
+- Generated TF tree PDF with ros2 run tf2_tools view_frames
+- Used tf2_echo to query live transforms between frames
+- Broke the TF tree intentionally to understand failure modes
+
+### Concepts learned
+- TF2 tracks every coordinate frame in the robot
+- Two flavors: /tf_static (once, from fixed joints) and /tf (continuous, from moving joints)
+- robot_state_publisher: reads URDF + /joint_states → publishes /tf and /tf_static
+- joint_state_publisher_gui is a "fake driver" — real robots use hardware/simulation
+- Every sensor message has a frame_id in its header
+- RViz Fixed Frame = the "camera anchor" for rendering
+- If a frame doesn't exist or its parent chain is broken, downstream nodes fail
+
+### What clicked
+-
+
+### Gotchas to remember
+- `map` frame doesn't exist until we set up localization (Week 4+)
+- Killing robot_state_publisher = TF tree collapses = RViz shows nothing
+- Fixed Frame must be reachable via the TF tree from whatever you're rendering
+- CMakeLists.txt install() block is required for launch files / URDF to be found after build
+
+### Questions
+-Kill didnt work 
+what does TF stand for
