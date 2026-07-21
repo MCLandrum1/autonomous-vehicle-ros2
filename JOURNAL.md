@@ -131,3 +131,40 @@
 ### Questions
 -Kill didnt work 
 what does TF stand for
+
+
+
+## Week 2, Day 4 — [date]
+
+### What I did
+- Converted my_robot.urdf → my_robot.urdf.xacro
+- Added xacro namespace to <robot> tag
+- Extracted magic numbers into <xacro:property> variables
+- Rewrote geometry using ${property_name} substitutions
+- Wrote a <xacro:macro> for the wheel (parameterized by prefix + y_offset)
+- Replaced two identical wheel blocks with two macro calls
+- Updated display.launch.py to use xacro.process_file() at launch time
+- Added xacro dependency to package.xml
+
+### Concepts learned
+- Xacro = XML macros for URDF
+- xmlns:xacro namespace unlocks <xacro:...> tags
+- <xacro:property name="X" value="Y"/> defines a variable
+- ${expression} evaluates math + substitutes properties inline
+- <xacro:macro name="X" params="a b"> ... </xacro:macro> defines reusable snippet
+- <xacro:X a="..." b="..."/> instantiates it
+- xacro.process_file() converts xacro → plain URDF at runtime
+- The .urdf.xacro extension is convention
+
+### What clicked
+-
+
+### The payoff
+- Changing wheel_radius updated 4 places automatically (2 radii + 2 Z offsets)
+- Chassis height changes auto-move sensor mount to stay on top
+- Macros eliminated duplicate wheel code; DRY principle applied
+
+### Gotchas
+- Don't forget `$` before `{...}`
+- Xacro won't catch typos in property names — you'll get literal strings in output
+- Must add xac

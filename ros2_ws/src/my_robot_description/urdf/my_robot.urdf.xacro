@@ -1,0 +1,105 @@
+<?xml version="1.0"?>
+<robot name="my_robot" xmlns:xacro="http://www.ros.org/wiki/xacro">
+ =====================================================
+       PROPERTIES (constants used throughout the robot)
+       ===================================================== -->
+  <xacro:property name="chassis_length" value="0.4"/>
+  <xacro:property name="chassis_width"  value="0.3"/>
+  <xacro:property name="chassis_height" value="0.15"/>
+
+  <xacro:property name="wheel_radius"    value="0.05"/>
+  <xacro:property name="wheel_thickness" value="0.03"/>
+  <xacro:property name="wheel_offset_y"  value="0.165"/>
+
+  <xacro:property name="caster_radius" value="0.025"/>
+  <xacro:property name="caster_offset_x" value="0.15"/>
+
+  <xacro:property name="pi" value="3.14159265359"/>
+
+  <!-- =====================================================
+       MACRO: wheel (parameterized by name and Y offset)
+       ===================================================== -->
+  <xacro:macro name="wheel" params="prefix y_offset">
+    <link name="${prefix}_wheel_link">
+      <visual>
+        <geometry>
+          <cylinder radius="${wheel_radius}" length="${wheel_thickness}"/>
+        </geometry>
+        <origin xyz="0 0 0" rpy="${pi/2} 0 0"/>
+        <material name="black"/>
+      </visual>
+    </link>
+    <joint name="${prefix}_wheel_joint" type="continuous">
+      <parent link="base_link"/>
+      <child link="${prefix}_wheel_link"/>
+      <origin xyz="0 ${y_offset} ${wheel_radius}" rpy="0 0 0"/>
+      <axis xyz="0 1 0"/>
+    </joint>
+  </xacro:macro>
+
+
+   <!-- =====================================================
+       MATERIALS
+       ===================================================== -->
+  <material name="blue">
+    <color rgba="0.2 0.4 0.8 1.0"/>
+  </material>
+  <material name="black">
+    <color rgba="0.1 0.1 0.1 1.0"/>
+  </material>
+  <material name="grey">
+    <color rgba="0.5 0.5 0.5 1.0"/>
+  </material>
+
+  <!-- =====================================================
+       CHASSIS
+       ===================================================== -->
+  <link name="base_link">
+    <visual>
+      <geometry>
+        <box size="${chassis_length} ${chassis_width} ${chassis_height}"/>
+      </geometry>
+      <origin xyz="0 0 ${chassis_height/2}" rpy="0 0 0"/>
+      <material name="blue"/>
+    </visual>
+  </link>
+
+    <!-- Instantiate both wheels using the macro -->
+  <xacro:wheel prefix="left"  y_offset="${wheel_offset_y}"/>
+  <xacro:wheel prefix="right" y_offset="${-wheel_offset_y}"/>
+
+  <!-- =====================================================
+       CASTER WHEEL
+       ===================================================== -->
+  <link name="caster_wheel_link">
+    <visual>
+      <geometry>
+        <sphere radius="${caster_radius}"/>
+      </geometry>
+      <material name="grey"/>
+    </visual>
+  </link>
+  <joint name="caster_wheel_joint" type="fixed">
+    <parent link="base_link"/>
+    <child link="caster_wheel_link"/>
+    <origin xyz="${caster_offset_x} 0 ${caster_radius}" rpy="0 0 0"/>
+  </joint>
+
+  <!-- =====================================================
+       SENSOR MOUNT
+       ===================================================== -->
+  <link name="sensor_mount_link">
+    <visual>
+      <geometry>
+        <box size="0.05 0.05 0.05"/>
+      </geometry>
+      <material name="grey"/>
+    </visual>
+  </link>
+  <joint name="sensor_mount_joint" type="fixed">
+    <parent link="base_link"/>
+    <child link="sensor_mount_link"/>
+    <origin xyz="0 0 ${chassis_height}" rpy="0 0 0"/>
+  </joint>
+
+</robot>
